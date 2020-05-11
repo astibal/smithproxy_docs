@@ -1,0 +1,6 @@
+site_name: Smithproxy User Documentation
+nav:
+        - Home: index.md
+        - Daemons: daemons.md
+
+theme: readthedocs
