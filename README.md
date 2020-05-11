@@ -1,2 +1,1 @@
-# smithproxy_docs
-smithproxy documentation repository
+# this is smithproxy documentation repository
