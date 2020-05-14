@@ -1,6 +1,12 @@
-site_name: Smithproxy User Documentation
+site_name: Smithproxy Docs
 nav:
         - Home: index.md
-        - Daemons: daemons.md
+        - Scenarios: scenarios.md
+        - INSTALL:
+            - Run in docker: installing-docker.md 
+            - Install from sources: installing-sources.md
+        - POST-INSTALL:
+            - First Setup: post-install.md 
+        - Components: design.md
 
 theme: readthedocs
