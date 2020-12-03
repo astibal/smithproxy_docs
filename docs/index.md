@@ -4,6 +4,8 @@
 
 > **Smithproxy** is fast and featured tproxy-based TCP/UDP/TLS transparent proxy for linux.
 
+> For a quick overview how to run basic tasks, check our [youtube channel](https://www.youtube.com/channel/UCb7BciVQp2pdQw9ndueTlvA).
+
 It's highly configurable with objects, traffic policies and profiles. **Smithproxy** also has its CLI where you can
 configure it and observe various diagnostics and other outputs.
 

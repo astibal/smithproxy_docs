@@ -4,7 +4,7 @@ Let's define some common terms here. If we speak about *observed* or *your host*
 It doesn't assume anything special where it runs, which OS or which level or kind of virtualization.
 If we talk about *smithproxy host* we mean the OS where **smithproxy** daemons run -- again, without any prior assumption about virtualization type of level.
 
-## Inline (routed via smithproxy)
+## 1. Inline (routed via smithproxy)
 
 **Your goal**:   
 You want to go though **smithproxy** with possibly all traffic, but without running anything additionally on *observed host*.
@@ -48,27 +48,27 @@ Notes
        Enabled, you need to set up routing to the inside network for returning traffic!
 ```
 
-This design allows you to route traffic transparently, without setting anything on *observed host*. Also, connection, leaving **smithproxy** to its upstream router can look pretty same as the original one on *observed host*: source IP and port could be retained. 
+This design allows you to route traffic transparently, without setting anything on *observed host* (except trusted CA certificate). Also, connection, leaving **smithproxy** to its upstream router can look pretty same as the original one on *observed host*: source IP and port could be retained. 
 
 > For simplicity of initial setup, **transparency is disabled by default**. You can enable it in the policy once you fix the routing.
 
 ### Tips
 Best is to run **smithproxy** on separate hardware, or in the VM. With VMs you lose some of speed, notably I/O. All my testing VMs in KVM run smoothly. Separate hardware is not typically needed, unless you want to deploy **smithproxy** as experimental firewall or inspect traffic of some specific host on the network which can't be put in the VM.  
-If you plan to deploy **smithproxy** in some sort of appliance, please check hardware crypto support of your platform. It's a Good Idea(tm) to have crypto operations supported by CPU for the application (yes, **smithproxy**) which actually perform lot of them.  
+If you plan to deploy **smithproxy** in some sort of appliance, please check hardware crypto support of your platform. It's a Good Idea(tm) to have crypto operations supported by CPU for the application (**smithproxy**) which actually perform lot of them.  
 
-**Inline with containers**: Even though you can install and run smithproxy in the container in this scenario, it makes little sense doing so, unless you have very specific  requirements. **We have NOT tested this**. Of course, any feedback welcome. 
+**Inline with containers**: Even though you can install and run smithproxy in the container in this scenario, it makes little sense doing so, unless you have very specific  requirements. And - **we have NOT tested this**. Of course, any feedback welcome. 
 
 &nbsp;
 
 ---
 
 
-## On the stick (on the same box)
+## 2. On the stick (on the same box)
 
 **Your goal**:  
 You want to quickly run **smithproxy** and do the thing. You prefer straightforward installation and setup, even at the cost of some functional limitations.
 
-Simply drawn it should look like this:
+Simply drawn you want something like follows:
 ```txt
 +-- SX host -----+  
 |                |  
@@ -78,7 +78,7 @@ Simply drawn it should look like this:
 |                |  
 +----------------+  
 ```
-Observed host and smithproxy host are the same. You cannot use *TPROXY* target here, because locally originated traffic in OUTPUT chain cannot be redirected there. Instead of it, we can use *REDIRECT* target. This target traffic processing is however tricky to implement in **smithproxy** with transparency support for UDP.  
+Observed host and smithproxy host are the same, maybe your PC or laptop. You cannot use *TPROXY* target here, because locally originated traffic in OUTPUT chain cannot be redirected there. Instead of it, we can use *REDIRECT* target. This target traffic processing is however tricky to implement in **smithproxy** with transparency support for UDP.  
 Because vast majority of deployments will not really focus on UDP, we made it partially supported for DNS traffic only. 
 
 ### Detailed schematics
@@ -100,10 +100,14 @@ Because vast majority of deployments will not really focus on UDP, we made it pa
 As you see, *REDIRECT* target smithproxy ports start at `51000`. Specific handling of dns udp traffic is made obvious by changing the port which ends with `53` (`51053`).
 
 ### Tips
-Best to run this scenario is to install **smithproxy** in the docker. You can redirect traffic from *your host* to the container with simple iptables script. See installation chater, where it's covered in detail.
+Best to run this scenario is to install **smithproxy** in the docker. You can redirect traffic from *your host* to the container with simple iptables script. See installation chapter, where it's covered in more detail.
+
+&nbsp;
+
+---
 
 
-## SOCKS proxy
+## 3. SOCKS proxy
 **Your goal**: Install smithproxy somewhere in the network, while you don't plan to route traffic through it. You want to explicitly use smithproxy if you configure SOCKS aware application to do so (browsers support SOCKS). 
 
 ### Detailed schematics
@@ -114,7 +118,7 @@ Let's skip simplified picture - it looks like this:
 |                 |   /
 |   [some app]-------'                    +---Smithproxy host -+
 |    ...                                  |                    |
-|   [observed app]  -----                 |     [smithproxy]
+|   [observed app]  -----   socks5        |     [smithproxy]
 |                 |       \-------------------> :tcp/1080 ---------> tcp *.*   
 +-----------------+                                                 (src ip:port of sx host)
                                           +--------------------+

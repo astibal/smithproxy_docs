@@ -6,7 +6,9 @@ nav:
             - Run in docker: installing-docker.md 
             - Install from sources: installing-sources.md
         - POST-INSTALL:
-            - First Setup: post-install.md 
+            - First Setup: post-install.md
+        - CA AUTHORITY
+            - Understanding Smithproxy CA: ca_generate.md
         - Components: design.md
 
 theme: readthedocs
