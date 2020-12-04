@@ -7,8 +7,8 @@ nav:
             - Install from sources: installing-sources.md
         - POST-INSTALL:
             - First Setup: post-install.md
-        - CA AUTHORITY
-            - Understanding Smithproxy CA: ca_generate.md
+        - Signing CA:
+            - CA ops: ca-ops.md
         - Components: design.md
 
 theme: readthedocs
