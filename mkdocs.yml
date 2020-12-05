@@ -2,13 +2,15 @@ site_name: Smithproxy Docs
 nav:
         - Home: index.md
         - Scenarios: scenarios.md
-        - INSTALL:
+        - Installation:
             - Run in docker: installing-docker.md 
             - Install from sources: installing-sources.md
-        - POST-INSTALL:
+        - Post-install:
             - First Setup: post-install.md
         - Signing CA:
             - CA ops: ca-ops.md
+        - Traffic captures:
+            - Capturing traffic: capture-traffic.md
         - Components: design.md
 
 theme: readthedocs

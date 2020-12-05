@@ -24,4 +24,21 @@ Therefore, middlebox must accept TLS connection with different certificate and i
 
 > Note: before connecting to real server, middlebox must know SNI (or it's absence), before connecting to real server. Otherwise connections to server with multiple TLS virtual servers would fail, or fall to default virtual host. That being said, knowing target IP address is not enough.
 
-For more information, please read more [Details about Smithproxy CA](/ca_generate).
+For more information, please read more [Details about Smithproxy CA](/ca-ops/).
+
+
+## Understanding redirection
+
+To intercept traffic, you have to somwhow get it to smithproxy first. This is done using iptables in pre-made scripts
+. There are few options in this regard: 
+
+* Redirect local traffic to locally running smithproxy (using iptables REDIRECT target)
+* Intercept forwarded (routed) traffic through the host running smithproxy (using iptables TPROXY traffic)
+* Process proxied traffic from remote browser configured for SOCKS proxy running on host running smithproxy (no
+ iptables redirection needed)
+
+You can combine all above in single smithproxy process. However, for each of targets above, separate thread tree is
+ spawned consuming its own IO and CPU. Specifically idle CPU can be few percents when all targets are running.  
+ 
+ > Use only features you really need. Target features can be disabled separately in the configuration using
+> `settings/accept_*` directive.
