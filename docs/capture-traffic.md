@@ -67,20 +67,21 @@ smithproxy(razor)<*> (config)# exit
 
 Let's check now if files are being written into the files. Note also how they are stored and organized into directories.
 
-```root@razor:/var/lib/docker/volumes/sxydumps/_data# find .
-   .
-   ./data
-   ./data/172.30.1.102
-   ./data/172.30.1.102/2020-12-05
-   ./data/172.30.1.102/2020-12-05/14-14-14_ssli_172.30.1.102:34708-ssli_40.127.110.237:443.smcap
-   ./data/172.30.1.102/2020-12-05/14-14-14_ssli_172.30.1.102:35958-ssli_68.232.34.200:443.smcap
-   ./data/172.30.1.102/2020-12-05/14-14-43_ssli_172.30.1.102:38846-ssli_52.114.133.168:443.smcap
-   ./data/127.0.0.1
-   ./data/127.0.0.1/2020-12-05
-   ./data/127.0.0.1/2020-12-05/14-14-43_udp_127.0.0.1:53230-udp_8.8.4.4:53.smcap
-   ./data/127.0.0.1/2020-12-05/14-14-14_udp_127.0.0.1:39975-udp_8.8.4.4:53.smcap
-   ./data/127.0.0.1/2020-12-05/14-14-14_udp_127.0.0.1:33418-udp_8.8.4.4:53.smcap
-   root@razor:/var/lib/docker/volumes/sxydumps/_data# 
+```
+root@razor:/var/lib/docker/volumes/sxydumps/_data# find .
+.
+./data
+./data/172.30.1.102
+./data/172.30.1.102/2020-12-05
+./data/172.30.1.102/2020-12-05/14-14-14_ssli_172.30.1.102:34708-ssli_40.127.110.237:443.smcap
+./data/172.30.1.102/2020-12-05/14-14-14_ssli_172.30.1.102:35958-ssli_68.232.34.200:443.smcap
+./data/172.30.1.102/2020-12-05/14-14-43_ssli_172.30.1.102:38846-ssli_52.114.133.168:443.smcap
+./data/127.0.0.1
+./data/127.0.0.1/2020-12-05
+./data/127.0.0.1/2020-12-05/14-14-43_udp_127.0.0.1:53230-udp_8.8.4.4:53.smcap
+./data/127.0.0.1/2020-12-05/14-14-14_udp_127.0.0.1:39975-udp_8.8.4.4:53.smcap
+./data/127.0.0.1/2020-12-05/14-14-14_udp_127.0.0.1:33418-udp_8.8.4.4:53.smcap
+root@razor:/var/lib/docker/volumes/sxydumps/_data# 
 ```
 
 We can have a look inside, ie. this one:
