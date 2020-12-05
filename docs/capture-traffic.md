@@ -20,7 +20,7 @@ policy = (
     nat = "auto"
     tls_profile = "default"
     detection_profile = "detect"
-    content_profile = "default"             // <------- this policy is using "default" content profile
+    content_profile = "default"             // <------- using "default" content profile
     auth_profile = "resolve"
     alg_dns_profile = "dns_default"
   } )
@@ -29,11 +29,12 @@ policy = (
 Let's check *default* content profile:
 
 
-```content_profiles = 
+```
+content_profiles = 
 {
   default = 
   {
-    write_payload = false                   // <------- write_payload controls if the traffic is dumped to files
+    write_payload = false                   // <------- write_payload setting
   }
   // ... 
 ```
@@ -142,11 +143,11 @@ Sometimes one doesn't want to go to CLI or reload smithproxy to stop normally en
 root@razor:/var/lib/docker/volumes/sxydumps/_data/data# touch disabled
 root@razor:/var/lib/docker/volumes/sxydumps/_data/data# ls -lsa
 total 16
-4 d-w-r-xr-T 4 root root 4096 pro  5 15:26 .
+4 d-w-r-xr-x 4 root root 4096 pro  5 15:26 .
 4 drwxr-xr-x 3 root root 4096 pro  5 15:26 ..
 4 drwxr-x--- 3 root root 4096 pro  5 15:14 127.0.0.1
 4 drwxr-x--- 3 root root 4096 pro  5 15:14 172.30.1.102
-0 -rw-r--r-- 1 root root    0 pro  5 15:26 disabled                # <------ disables traffic captures
+0 -rw-r--r-- 1 root root    0 pro  5 15:26 disabled          # <------ disables traffic captures
 ```
  
 > Note: there is one drawback - the content is still prepared, the saving procedure is just skipped, implying all CPU
