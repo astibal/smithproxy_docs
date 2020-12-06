@@ -24,7 +24,7 @@ Therefore, middlebox must accept TLS connection with different certificate and i
 
 > Note: before connecting to real server, middlebox must know SNI (or it's absence), before connecting to real server. Otherwise connections to server with multiple TLS virtual servers would fail, or fall to default virtual host. That being said, knowing target IP address is not enough.
 
-For more information, please read more [Details about Smithproxy CA](/ca-ops/).
+For more information, please read more [Details about Smithproxy CA](../ca-ops).
 
 
 ## Understanding redirection
