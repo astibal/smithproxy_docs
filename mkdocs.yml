@@ -3,8 +3,9 @@ nav:
         - Home: index.md
         - Scenarios: scenarios.md
         - Installation:
-            - Run in docker: installing-docker.md 
-            - Install from sources: installing-sources.md
+            - Docker: install/docker.md
+            - Snap: install/snap.md
+            - Sources: install/sources.md
         - Post-install:
             - First Setup: post-install.md
         - Signing CA:

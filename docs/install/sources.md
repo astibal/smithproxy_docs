@@ -1,9 +1,9 @@
 # Installation from sources
 
-This is actually very easy. Only drawback is, you (script) will install some development 
+This is actually very easy. Only drawback is, you (script) will will need to install some development 
 tools in order to build and make work everything correctly.
 
-You will need git, everything else is downloaded automatically.
+You will need to initially install git, everything else is downloaded automatically later by script.
 
 ## Supported platforms
 
@@ -15,7 +15,7 @@ You will need git, everything else is downloaded automatically.
 
 **Directly supported**:
 
-- Ubuntu >= 18.04
+- Ubuntu >= 18.04 (and derivatives including Kali Linux)
 - Fedora >= 31
 - Debian >= 10
 - Alpine >= 3.11
