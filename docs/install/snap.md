@@ -92,12 +92,12 @@ directory.
 Because snap files organization differs a bit compared to common places on regular installs, 
 let's check where is what.
 
- Content of `/var/snap/smithproxy/current`:  
+Content of `/var/snap/smithproxy/current`:  
  * `ca-bundle`: public root authorities bundle delivered with snap (snap doesn't have access to your `/etc/ssl`)  
  * `ca-certificates`: *TBA*, empty time being  
  * `captures`: contains all capture files you took  
  * `log`: logs :)   
-    * `smithproxy.default.sslkeylog.log` SSL key dump - usable in wireshark   
+ * `smithproxy.default.sslkeylog.log` SSL key dump - usable in wireshark   
 
 
 
