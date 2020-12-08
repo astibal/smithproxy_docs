@@ -27,9 +27,9 @@ Therefore, middlebox must accept TLS connection with different certificate and i
 For more information, please read more [Details about Smithproxy CA](../ca-ops).
 
 
-## Understanding redirection
+## Understanding traffic interception
 
-To intercept traffic, you have to somwhow get it to smithproxy first. This is done using iptables in pre-made scripts
+To intercept traffic, you have to somehow get it to smithproxy first. This is done using iptables in pre-made scripts
 . There are few options in this regard: 
 
 * Redirect local traffic to locally running smithproxy (using iptables REDIRECT target)
@@ -42,3 +42,12 @@ You can combine all above in single smithproxy process. However, for each of tar
  
  > Use only features you really need. Target features can be disabled separately in the configuration using
 > `settings/accept_*` directive.
+
+Please bear in mind redirected traffic from local host which is sent out from smithproxy process still can be redirected
+ again by smithproxy. Current mechanism to avoid this is rule skipping 'root' user traffic.
+ 
+## Smithproxy CLI
+Once smithproxy started, CLI is available to perform various monitoring and disagnostic tasks. This cli is offered
+as a plaintext telnet service on loopback address and port 50000. It is supposed to be used only by local users on the host.   
+There is command `sx_cli` which is basically an alias for telnet client with some small port connection logic related
+ to tenants. Unfortunately `sx_cli` is not available in *snap* installation.  

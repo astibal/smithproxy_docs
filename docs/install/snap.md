@@ -97,7 +97,7 @@ Content of `/var/snap/smithproxy/current`:
  * `ca-certificates`: *TBA*, empty time being  
  * `captures`: contains all capture files you took  
  * `log`: logs :)   
- * `smithproxy.default.sslkeylog.log` SSL key dump - usable in wireshark   
+     * `smithproxy.default.sslkeylog.log`: SSL key dump - usable in wireshark   
 
 
 
