@@ -3,7 +3,9 @@
 ## Super easy to test 
 
 For a test, just simply run: 
-> `sudo docker run -it --rm astibal/smithproxy:latest` 
+> `sudo docker run -it --shm-size 512M --rm astibal/smithproxy:latest`  
+
+>  Note: with default `shm-size` 64MB smithproxy will terminate, it needs `256M` as minimum 
 
 This will download latest **smithproxy** build and run it. You can see CLI, and other features.
 However, this is usually not what you really want long term - there are options you want to keep and persist.
@@ -12,11 +14,10 @@ However, this is usually not what you really want long term - there are options 
 
 Above example pulls `latest` tag. Which is build from `master` branch in the Ubuntu 18.04 LTS.
 
-There are few docker tags available:
+Docker tags:
 
 * `latest` - Ubuntu 18.04 LTS + master branch (fresh, it-should-work option)
-* `devel` - Ubuntu 18.04 LTS + master branch + debug tools (fresh, it-should-work development option)
-* `legacy` - Ubuntu 18.04 LTS + 
+
 
 ## Volumes
 
@@ -26,9 +27,17 @@ There are at least three places you need to keep to restart docker without losin
 - `/var/log/` - keep your logs (including SSL key dumps)
 - `/var/local/smithproxy/` - captures default storage
 
+## Shared memory
+
+Smithproxy will **not** run properly with less than ~200MB of shared memory and it will terminate. 
+Startup scripts are adjusted to allocate 512MB of shm, you can decrease this number a bit if needed. 
+But never ho below minimal amount.  
+
+Shared memory is used to synchronize identity data from other smithproxy components. If shm is depleted,
+program is terminated with SIGBUS. This happens few tens of seconds after the start when tables are id refreshed.  
 
 ## Docker launcher script
-To make it easier, there is script which does all that for you. It creates volumes *if needed* and attaches them to
+This script creates volumes *if needed* and attaches them to
 correct places in the container. Run this in the *host* system.
 
 ```bash
@@ -74,6 +83,7 @@ sudo docker run -v sxy:/etc/smithproxy \
         ${LOG_VOLUME} \
         -v sxydumps:/var/local/smithproxy \
         -it \
+        --shm-size 512M \ 
         --rm --network host --name "sx-${TAG}" astibal/smithproxy:${TAG} "$@"
 
 ```

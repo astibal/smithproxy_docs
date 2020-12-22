@@ -13,5 +13,7 @@ nav:
         - Traffic captures:
             - Capturing traffic: capture-traffic.md
         - Components: design.md
+        - Shell commands:
+            - Overview: commands/start.md
 
 theme: readthedocs
