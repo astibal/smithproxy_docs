@@ -50,13 +50,62 @@ Notes
 
 This design allows you to route traffic transparently, without setting anything on *observed host* (except trusted CA certificate). Also, connection, leaving **smithproxy** to its upstream router can look pretty same as the original one on *observed host*: source IP and port could be retained. 
 
+
 > For simplicity of initial setup, **transparency is disabled by default**. You can enable it in the policy once you fix the routing.
 
 ### Tips
-Best is to run **smithproxy** on separate hardware, or in the VM. With VMs you lose some of speed, notably I/O. All my testing VMs in KVM run smoothly. Separate hardware is not typically needed, unless you want to deploy **smithproxy** as experimental firewall or inspect traffic of some specific host on the network which can't be put in the VM.  
+Best is to run **smithproxy** on separate hardware, or in the VM. With VMs you lose some of speed, notably 
+I/O. All my testing VMs in KVM run smoothly. Separate hardware is not typically needed, unless you want to deploy **smithproxy** as experimental firewall or inspect traffic of some specific host on the network which can't be put in the VM.  
 If you plan to deploy **smithproxy** in some sort of appliance, please check hardware crypto support of your platform. It's a Good Idea(tm) to have crypto operations supported by CPU for the application (**smithproxy**) which actually perform lot of them.  
 
-**Inline with containers**: Even though you can install and run smithproxy in the container in this scenario, it makes little sense doing so, unless you have very specific  requirements. And - **we have NOT tested this**. Of course, any feedback welcome. 
+## Inline docker scenario
+
+You can run this scenario with both, *smithproxy* **and** *your app* as a docker. Your App container is 
+routed via `docker0` interface, which can be, with a bit of setting, also intercepted by smithproxy.
+
+To divert traffic from `docker0` interface, you have to run this hacky thing on the host system :    
+`echo "0" | sudo tee /proc/sys/net/bridge/bridge-nf-call-iptables`  
+
+It will enable bridge traffic to end up correctly in TPROXY target (it won't work otherwise). Somebody more knowledgeable
+ about docker or iptables can really evaluate risk of this, or better alternative. For me, it's a hack which did the
+  job.  
+
+If you want to run smithproxy also in the docker container, run it with `--network host` option, and use
+`sx_network`-like diverts from host system to dockerized smithproxy tproxy ports.
+
+
+### Details 
+```
+
+                                  +-- Smithproxy container--+
+                                  |      --network host     |
+                                  |                         |
+                                  |  [smithproxy]
+                                  |   :udp/50080  plaintext ----> *:*   (same src ip:port) [1]
+                                  |   :tcp/50443  tls       ----> *:*   (same src ip:port)
+                                  |   :tcp/50080  plaintext ----> *:*   (same src ip:port)
+                                  |    ^      
+                                  +--- | -------------------+
+                                      
+                                       |
++- Your container+                +--  | - Host system ------+     
+|                |                |    |                     |     
+|   [your app]------> OUT ---->   |--- '  <iptables MANGLE>  |
+|                |                |       on docker0 intf    |
++----------------+                +--------------------------+
+
+Notes
+[1] - Transparency could be enabled/disabled in the policy. 
+       Enabled, you need to set up routing to the inside network for returning traffic!
+```
+
+Host system MANGLE rules can be inspired by these in `sx_network` script. Also, don't forget `docker0` interface
+will appear in the system only after a container is running. Mangle scripts should be therefore run after `docker0
+` interfaces are created.
+
+> `/etc/smithproxy/smithproxy.startup.cfg`: magic `'-'` interface setting `SMITH_INTERFACE='-'` will ensure all downlink
+> (not having default route associated) interfaces are intercepted. 
+
 
 &nbsp;
 
