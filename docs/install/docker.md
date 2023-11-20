@@ -24,7 +24,7 @@ Docker tags:
 There are at least three places you need to keep to restart docker without losing your data:
 
 - `/etc/smithproxy/` - dir, all config is placed here
-- `/var/log/` - keep your logs (including SSL key dumps)
+- `/var/log/smithproxy/` - keep your logs (including SSL key dumps)
 - `/var/local/smithproxy/` - captures default storage
 
 ## Shared memory

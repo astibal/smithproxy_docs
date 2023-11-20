@@ -1,29 +1,36 @@
 # Welcome
 
-## Overview
+> **Smithproxy** is fast and featured TCP/UDP/TLS transparent + socks5 proxy for linux.  
+> Primary aim is to provide best-possible file and GRE export capturing experience, while being:
+> * fast (written in C++)
+> * highly configurable (powerful CLI and configuration options)
+> * secure (extensive TLS security options, STARTTLS)
+> * flexible ( You can connect to smithproxy also using SOCKS5 protocol.)
 
-> **Smithproxy** is fast and featured tproxy-based TCP/UDP/TLS transparent proxy for linux.
+> For a quick overview how to run basic tasks, check our [YouTube channel](https://www.youtube.com/channel/UCb7BciVQp2pdQw9ndueTlvA).  
+> You can also come over to say hi, or ask for help on our [Discord server](https://discord.gg/vf4Qwwt)!
 
-> For a quick overview how to run basic tasks, check our [youtube channel](https://www.youtube.com/channel/UCb7BciVQp2pdQw9ndueTlvA).
+## Traffic capture
+You can capture traffic to files, or to resend it in GRE as a remote capture. Indeed, both PCAP file and GRE-encapsulated
+captures are plaintext, "decrypted" if you will.  
 
-It's highly configurable with objects, traffic policies and profiles. **Smithproxy** also has its CLI where you can
-configure it and observe various diagnostics and other outputs.
+##  CLI
+CLI is highly configurable with objects, traffic policies and profiles. CLI also handles configuration,
+you don't need to edit (with very few exceptions) configuration files at all.
 
-**Smithproxy** should run on any recent linux system, but it requires `root` privileges if you want it to be fully transparent and not changing source IP and port of passing connections. You can connect to smithproxy also using SOCKS5 protocol.
+## Performance
+**Smithproxy** will run on any recent linux system, but it requires `root` privileges to exploit all transparency options.
+Overall performance will benefit from multiple CPU cores, as the traffic is internally load-balanced to multiple threads.
 
-**Smithproxy** parially understands DNS traffic, you can use FQDN or domain wildcards for making policy match.
-Also, together with HTTP, you can redirect browser traffic to login captive portal to authenticate user.
-Captive portal redirection is correctly signed by trusted CA, if configured properly.
+## Protocol support
+**Smithproxy** understands DNS (+DoH), HTTP1 and HTTP2 engines. You can monitor these in CLI, too.
+So-called "policy features" can further enhance traffic inspection. 
 
-**Smithproxy** is considerably fast. If you have alredy tried other (ie. python-based) TLS mitm proxies, you should see significant speed-up! Browsing complex http pages should not be very different from going there directly.
+## Webhooks
+If configured, **smithproxy** will notify webhook server with connection-related information.  
+Note: introduced in 0.9.32.
 
-## Typical Usage
-
-**Smithproxy** is kind of dual-purposed, or if you prefer, double-faced.
-
-### Attack proxy
-You can use smithproxy for (*simulating*) malicious activities. It can capture plaintext traffic or SSL keys. Traffic can be later analyzed with other tools, or replayed with [pplay](https://pypi.org/project/pplay/) which directly supports smithproxy `*.smcap` captures (and also `*.pcap[ng]`). Traffic can be also replaced with a custom payload.
-
-### Experimental firewall
-**Smithproxy** performs by default all possible TLS checks. STARTTLS support, OCSP for all connections, hash strenght checks, etc. Its policy granularity provides quite good controls over the traffic.  
+## Usage variability
+**Smithproxy** can be well a hacking/capturing proxy, or your experimental network firewall.   
+With the newest _webhook_ and _policy features_ additions, it can be used as a honeynet network firewall. 
 

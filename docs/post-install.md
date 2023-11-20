@@ -1,7 +1,7 @@
 
 # Post-install instructions
 
-This chapter should help you with next steps, after you sucessfully installed **smithproxy**.
+This chapter should help you with next steps, after you successfully installed **smithproxy**.
 
 ## Quick info
 
