@@ -2,10 +2,10 @@
 
 > **Smithproxy** is fast and featured TCP/UDP/TLS transparent + socks5 proxy for linux.  
 > Primary aim is to provide best-possible file and GRE export capturing experience, while being:
-> * fast (written in C++)
-> * highly configurable (powerful CLI and configuration options)
-> * secure (extensive TLS security options, STARTTLS)
-> * flexible ( You can connect to smithproxy also using SOCKS5 protocol.)
+> * fast (written in C++)  
+> * highly configurable (powerful CLI and configuration options)  
+> * secure (extensive TLS security options, STARTTLS)  
+> * flexible ( You can connect to smithproxy also using SOCKS5 protocol.)  
 
 > For a quick overview how to run basic tasks, check our [YouTube channel](https://www.youtube.com/channel/UCb7BciVQp2pdQw9ndueTlvA).  
 > You can also come over to say hi, or ask for help on our [Discord server](https://discord.gg/vf4Qwwt)!
@@ -23,7 +23,7 @@ you don't need to edit (with very few exceptions) configuration files at all.
 Overall performance will benefit from multiple CPU cores, as the traffic is internally load-balanced to multiple threads.
 
 ## Protocol support
-**Smithproxy** understands DNS (+DoH), HTTP1 and HTTP2 engines. You can monitor these in CLI, too.
+**Smithproxy** understands DNS (+DoH), having HTTP1 and HTTP2 engines. You can monitor these in CLI, too.
 So-called "policy features" can further enhance traffic inspection. 
 
 ## Webhooks
