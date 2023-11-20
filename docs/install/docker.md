@@ -139,7 +139,7 @@ stop)
 esac
 ```
 This will exempt local LAN traffic and some users' traffic from smithproxy redirection. Because smithproxy runs as a root,
-it's exemted too, and not redirected back to itself.
+it's exempted too, and not redirected back to itself.
 
 **NOTE**: Bear in mind, generic UDP is not supported with REDIRECT iptables setup.
 This is why we redirect `udp/53` to port `udp/51053`, which assume it's DNS and forwards it to DNS servers set in `smithproxy.cfg`.
