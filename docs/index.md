@@ -2,6 +2,7 @@
 
 > **Smithproxy** is fast and featured TCP/UDP/TLS transparent + socks5 proxy for linux.  
 > Primary aim is to provide best-possible file and GRE export capturing experience, while being:
+
 > * fast (written in C++)  
 > * highly configurable (powerful CLI and configuration options)  
 > * secure (extensive TLS security options, STARTTLS)  
